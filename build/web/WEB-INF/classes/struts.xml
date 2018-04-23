@@ -1,0 +1,40 @@
+<!DOCTYPE struts PUBLIC
+"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+    <!-- Configuration for the default package. -->
+    <package name="default" extends="struts-default" namespace="/">
+        <action name="try">
+            <result>
+                index.jsp
+            </result>
+        </action>
+        <action name="main" class="phat.actions.MainAction">
+            <result name="login" type="redirectAction">
+                <param name="actionName">login</param>
+                <param name="username">${username}</param>
+                <param name="password">${password}</param>
+            </result>
+            <result name="fail">error.jsp</result>
+        </action>
+        <action name="login" class="phat.actions.LoginAction">
+            <result name="admin" >
+                admin.jsp
+            </result>
+            <result name="user" type="redirectAction" >
+                <param name="actionName">choose</param>
+            </result>
+            <result name="fail">error.jsp</result>
+        </action>
+        <action name="choose" class="phat.actions.ChooseRobotAction">
+            <result name="choose">user.jsp</result>
+            <result name="load" type="redirectAction">
+                <param name="actionName">load</param>
+            </result>
+        </action>
+        <action name="load" class="phat.actions.LoadRobotAction">
+            <result>user.jsp</result>
+        </action>
+    </package>
+</struts>
